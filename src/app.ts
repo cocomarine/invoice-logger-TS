@@ -17,12 +17,31 @@ const list = new ListTemplate(ul);
 form.addEventListener('submit', (e: Event) => {
   e.preventDefault();
 
+  let values: [string, string, number];
+  values = [tofrom.value, details.value, amount.valueAsNumber]
+
   let doc: HasFormatter;
   if (type.value === 'invoice'){
-    doc = new Invoice(tofrom.value, details.value, amount.valueAsNumber);
+    doc = new Invoice(...values);
   } else {
-    doc = new Payment(tofrom.value, details.value, amount.valueAsNumber);
+    doc = new Payment(...values);
   }
 
   list.render(doc, type.value, 'end');
 })
+
+// tuples
+
+// in array have any types of values regardless of how it was first set
+let arr = ['ryu', 25, true];
+arr[0] = false;
+arr[1] = 'yoshi';
+arr = [30, false, 'yoshi']; 
+
+// in tuples, types and order explicitely set
+let tup: [string, number, boolean] = ['ryu', 20, true];
+tup[0] = 'ken';
+tup[1] = 30;
+
+let student: [string, number];
+student = ['chun-li', 22345];
